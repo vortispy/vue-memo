@@ -1,3 +1,13 @@
+const STRAGE_KEY = "vue-memo";
+let memoStorage = {
+	fetch: function (){
+		let memos = JSON.parse(localStorage.getItem(STRAGE_KEY) || '[]');
+		return memos;
+	},
+	save: function (memos){
+		localStorage.setItem(STRAGE_KEY, JSON.stringify(memos));
+	}
+};
 const editpage = {
 	template:
 		'<div>'+
