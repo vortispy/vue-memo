@@ -8,6 +8,28 @@ let memoStorage = {
 		localStorage.setItem(STRAGE_KEY, JSON.stringify(memos));
 	}
 };
+const memoStore = {
+	memos: memoStorage.fetch(),
+	createMemo (title, text, created_at, uid){
+		this.memos.push({
+			title,
+			text,
+			created_at,
+			uid,
+		});
+	},
+	updateMemo (title, text, created_at, uid){
+		const index = this.seachWithUid(uid);
+		this.memos.splice(index, 1, {title, text, created_at, uid});
+	},
+	seachWithUid (uid){
+		this.memos.forEach(value, index => {
+			if (value.uid === uid){
+				return index;
+			}
+		});
+	}
+};
 const editpage = {
 	template:
 		'<div>'+
