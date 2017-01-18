@@ -46,27 +46,42 @@ const editpage = {
 	template:
 		'<div>'+
 		'<input type="text" v-model="title"/><textarea v-model="memo"/>'+
-		'<button v-on:click="saveMemo">save</button>'+
+		'<button v-on:click="saveMemo(title, memo)">save</button>'+
 		'</div>',
 	data: function (){
-		return {
-			title: '',
-			memo: ''
-		};
+		let uid = 'uid' in this.$route.params ? this.$route.params.uid : '';
+		let title = '', memo = '';
+		
+		if (uid !== ''){
+			let index = memoStore.searchWithUid(uid);
+			title = memoStore.memos[index].title;
+			memo = memoStore.memos[index].text;
+		}
+		return {title, memo, uid};
 	},
 	methods: {
-		saveMemo: function () {
-			let title = this.title;
-			let memo = this.memo;
-			let uid = this.generateUid();
+		saveMemo: function (title, memo) {
 			let created_at = new Date().toJSON();
 
 			if (title === '' && memo === ''){
 				return;
 			}
-			memoStore.createMemo(title, memo, created_at, uid);
+			if(this.uid === ''){
+				this.createMemo(title, memo, created_at);
+			} else{
+				this.updateMemo(title, memo, created_at, this.uid);
+			}
 			memoStorage.save(memoStore.memos);
-			this.$router.push('/');
+			this.$router.replace({ name: 'update', params: { uid: this.uid }});
+			return;
+		},
+		createMemo: function (title, memo, created_at){
+			this.uid = this.generateUid();
+			memoStore.createMemo(title, memo, created_at, this.uid);
+			return;
+		},
+		updateMemo: function (title, memo, created_at, uid){
+			memoStore.updateMemo(title, memo, created_at, uid);
 			return;
 		},
 		generateUid: function (){
@@ -82,7 +97,10 @@ const memolist = {
 	template:
 		'<div>'+
 		'<ul>'+
-		'<li v-for="memo in memos">{{ memo.title }}'+
+		'<li v-for="memo in memos">'+
+		'<router-link :to="{ name: \'update\', params: { uid: memo.uid }}">'+
+		'{{ memo.title }}'+
+		'</router-link>'+
 		'<span>{{ memo.created_at }}</span>'+
 		'</li>'+
 		'</div>',
@@ -94,7 +112,8 @@ const memolist = {
 };
 const routes = [
 	{ path: '/', component: memolist },
-	{ path: '/create', component: editpage }
+	{ path: '/edit/:uid', name: 'update', component: editpage },
+	{ path: '/edit', component: editpage }
 ];
 const router = new VueRouter({
 	routes
