@@ -54,7 +54,25 @@ const editpage = {
 	},
 	methods: {
 		saveMemo: function () {
-			return
+			let title = this.title;
+			let memo = this.memo;
+			let uid = this.generateUid();
+			let created_at = new Date().toJSON();
+
+			if (title === '' && memo === ''){
+				return;
+			}
+			memoStore.createMemo(title, memo, created_at, uid);
+			memoStorage.save(memoStore.memos);
+			this.$router.push('/');
+			return;
+		},
+		generateUid: function (){
+			let uid = memoStore.generateUid();
+			while(memoStore.searchWithUid(uid) !== -1){
+				uid = memoStore.generateUid();
+			}
+			return uid;
 		}
 	}
 };
