@@ -86,6 +86,5 @@ const app = new Vue({
 	router,
 	el: '#app',
 	data: {
-		message: 'hello'
 	}
 });
