@@ -1,4 +1,5 @@
 const STRAGE_KEY = "vue-memo";
+const UID_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 let memoStorage = {
 	fetch: function (){
 		let memos = JSON.parse(localStorage.getItem(STRAGE_KEY) || '[]');
@@ -10,6 +11,7 @@ let memoStorage = {
 };
 const memoStore = {
 	memos: memoStorage.fetch(),
+	uidchars: UID_CHARS,
 	createMemo (title, text, created_at, uid){
 		this.memos.push({
 			title,
@@ -27,6 +29,13 @@ const memoStore = {
 			if (value.uid === uid){
 				return index;
 			}
+		});
+	},
+	generateUid(){
+		let uid = "xxxxxxxx"; // uid length is 8.
+		return uid.replace(/x/g, () =>{
+			let i = Math.random() * uidchars.length | 0;
+			return uidchars[i];
 		});
 	}
 };
