@@ -21,10 +21,10 @@ const memoStore = {
 		});
 	},
 	updateMemo (title, text, created_at, uid){
-		const index = this.seachWithUid(uid);
+		const index = this.searchWithUid(uid);
 		this.memos.splice(index, 1, {title, text, created_at, uid});
 	},
-	seachWithUid (uid){
+	searchWithUid (uid){
 		this.memos.forEach(value, index => {
 			if (value.uid === uid){
 				return index;
