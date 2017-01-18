@@ -76,7 +76,22 @@ const editpage = {
 		}
 	}
 };
+const memolist = {
+	template:
+		'<div>'+
+		'<ul>'+
+		'<li v-for="memo in memos">{{ memo.title }}'+
+		'<span>{{ memo.created_at }}</span>'+
+		'</li>'+
+		'</div>',
+	data: function (){
+		return {
+			memos: memoStore.memos
+		};
+	}
+};
 const routes = [
+	{ path: '/', component: memolist },
 	{ path: '/create', component: editpage }
 ];
 const router = new VueRouter({
