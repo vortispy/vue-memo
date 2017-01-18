@@ -8,7 +8,8 @@
 </head>
 <body>
 	<div id="app">
-		<router-link to="/edit">create memo</router-link>
+		<router-link :to="{ name: 'home' }">home</router-link>
+		<router-link :to="{ name: 'create' }">create memo</router-link>
 		<router-view></router-view>
 	</div>
 	<script src="js/main.js"></script>

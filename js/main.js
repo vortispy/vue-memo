@@ -111,9 +111,9 @@ const memolist = {
 	}
 };
 const routes = [
-	{ path: '/', component: memolist },
+	{ path: '/', name: 'home', component: memolist },
 	{ path: '/edit/:uid', name: 'update', component: editpage },
-	{ path: '/edit', component: editpage }
+	{ path: '/edit', name: 'create', component: editpage }
 ];
 const router = new VueRouter({
 	routes
