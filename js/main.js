@@ -25,12 +25,14 @@ const memoStore = {
 		this.memos.splice(index, 1, {title, text, created_at, uid});
 	},
 	searchWithUid (uid){
+		let ret = -1;
 		this.memos.forEach((value, index) => {
 			if (value.uid === uid){
-				return index;
+				ret = index
+				return;
 			}
 		});
-		return -1;
+		return ret;
 	},
 	generateUid(){
 		let uid = "xxxxxxxx"; // uid length is 8.
