@@ -24,6 +24,14 @@ const memoStore = {
 		const index = this.searchWithUid(uid);
 		this.memos.splice(index, 1, {title, text, created_at, uid});
 	},
+	deleteMemo (uid){
+		const index = this.searchWithUid(uid);
+		if (index === -1){
+			return;
+		}
+		this.memos.splice(index, 1);
+		return;
+	},
 	searchWithUid (uid){
 		let ret = -1;
 		this.memos.forEach((value, index) => {
@@ -111,12 +119,19 @@ const memolist = {
 		'{{ memo.title }}'+
 		'</router-link>'+
 		'<span>{{ memo.created_at }}</span>'+
+		'<button v-on:click="deleteMemo(memo.uid)">delete</button>'+
 		'</li>'+
 		'</div>',
 	data: function (){
 		return {
 			memos: memoStore.memos
 		};
+	},
+	methods: {
+		deleteMemo: function (uid){
+			memoStore.deleteMemo(uid);
+			memoStorage.save(this.memos);
+		}
 	}
 };
 const routes = [
