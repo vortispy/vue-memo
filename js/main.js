@@ -91,6 +91,15 @@ const editpage = {
 			}
 			return uid;
 		}
+	},
+	watch: {
+		'$route' (to, from){
+			if (to.name === 'create') {
+				this.uid = '';
+				this.title = '';
+				this.memo = '';
+			}
+		}
 	}
 };
 const memolist = {
