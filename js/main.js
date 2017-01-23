@@ -1,5 +1,10 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
 const STRAGE_KEY = "vue-memo";
 const UID_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+Vue.use(VueRouter);
 let memoStorage = {
 	fetch: function (){
 		let memos = JSON.parse(localStorage.getItem(STRAGE_KEY) || '[]');
