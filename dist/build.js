@@ -11246,6 +11246,7 @@ exports.default = {
 //
 //
 //
+//
 
 /***/ }),
 /* 9 */
@@ -11308,7 +11309,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('ul', _vm._l((_vm.memoStore.memos), function(memo) {
+  return _c('div', [(_vm.memoStore.memos.length === 0) ? _c('span', [_vm._v("You don't have any memos.")]) : _c('ul', _vm._l((_vm.memoStore.memos), function(memo) {
     return _c('li', [_c('router-link', {
       attrs: {
         "to": {
