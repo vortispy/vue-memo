@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<ul>
+		<span v-if="memoStore.memos.length === 0">You don't have any memos.</span>
+		<ul v-else>
 			<li v-for="memo in memoStore.memos">
 				<router-link :to="{ name: 'update', params: { uid: memo.uid }}">
 					{{ memo.title }}
