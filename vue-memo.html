@@ -2,13 +2,19 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device=width, initial-scale=1">
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<title>vue memo</title>
 </head>
 <body>
-	<div id="app">
-		<router-link :to="{ name: 'home' }">home</router-link>
-		<router-link :to="{ name: 'create' }">create memo</router-link>
-		<router-view></router-view>
+	<div id="app"class="container">
+		<nav class="row navbar navbar-default">
+			<div class="col-xs-12 nav navbar-nav">
+				<li><router-link :to="{ name: 'home' }" class="">home</router-link></li>
+				<li><router-link :to="{ name: 'create' }" class="">create memo</router-link></li>
+			</div>
+		</nav>
+		<router-view class="row"></router-view>
 	</div>
 	<script src="dist/build.js"></script>
 </body>
