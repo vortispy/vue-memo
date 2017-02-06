@@ -32,13 +32,14 @@ export default {
 			const memoDate = new Date(created_at);
 			const minutes = memoDate.getMinutes();
 			const hours = memoDate.getHours();
+			const date = memoDate.getDate();
 			const month = memoDate.getMonth() + 1;
-			let datestring = "" + month + "月" + minutes + "日";
+			let datestring = "" + month + "月" + date + "日";
 
 			if(now.getYear() !== memoDate.getYear()){
 				datestring = memoDate.getFullYear() + datestring;
 			}
-			else if(now.getDate() === memoDate.getDate()){
+			else if(now.getDate() === date){
 				const minstring = (minutes > 9 ? "" : "0") + minutes;
 				const hourstirng = (hours > 9 ? "" : "0") + hours;
 				datestring += " " + hourstirng + ":" + minstring;
