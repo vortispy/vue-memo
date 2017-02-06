@@ -6,7 +6,7 @@
 				<router-link :to="{ name: 'update', params: { uid: memo.uid }}" class="col-xs-8 text-left">
 					{{ memo.title }}
 				</router-link>
-				<span class="col-xs-2">{{ memo.created_at }}</span>
+				<span class="col-xs-2">{{ dateString(memo.created_at) }}</span>
 				<button v-on:click="deleteMemo(memo.uid)" class="col-xs-offset-1">X</button>
 			</li>
 		</ul>
@@ -26,6 +26,25 @@ export default {
 		deleteMemo: function (uid){
 			memoStore.deleteMemo(uid);
 			memoStore.saveMemo();
+		},
+		dateString: function (created_at){
+			const now = new Date();
+			const memoDate = new Date(created_at);
+			const minutes = memoDate.getMinutes();
+			const hours = memoDate.getHours();
+			const month = memoDate.getMonth() + 1;
+			let datestring = "" + month + "月" + minutes + "日";
+
+			if(now.getYear() !== memoDate.getYear()){
+				datestring = memoDate.getFullYear() + datestring;
+			}
+			else if(now.getDate() === memoDate.getDate()){
+				const minstring = (minutes > 9 ? "" : "0") + minutes;
+				const hourstirng = (hours > 9 ? "" : "0") + hours;
+				datestring += " " + hourstirng + ":" + minstring;
+			}
+
+			return datestring;
 		}
 	}
 };
