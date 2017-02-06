@@ -7,7 +7,9 @@
 					{{ memo.title }}
 				</router-link>
 				<span class="col-xs-2">{{ dateString(memo.created_at) }}</span>
-				<button v-on:click="deleteMemo(memo.uid)" class="col-xs-offset-1">X</button>
+				<span class="col-xs-offset-1">
+					<button v-on:click="deleteMemo(memo.uid)" class="btn btn-default btn-xs">X</button>
+				</span>
 			</li>
 		</ul>
 	</div>
