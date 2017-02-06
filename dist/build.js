@@ -11206,6 +11206,12 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 8 */
@@ -11230,9 +11236,30 @@ exports.default = {
 		deleteMemo: function deleteMemo(uid) {
 			_memostore.memoStore.deleteMemo(uid);
 			_memostore.memoStore.saveMemo();
+		},
+		dateString: function dateString(created_at) {
+			var now = new Date();
+			var memoDate = new Date(created_at);
+			var minutes = memoDate.getMinutes();
+			var hours = memoDate.getHours();
+			var date = memoDate.getDate();
+			var month = memoDate.getMonth() + 1;
+			var datestring = "" + month + "月" + date + "日";
+
+			if (now.getYear() !== memoDate.getYear()) {
+				datestring = memoDate.getFullYear() + datestring;
+			} else if (now.getDate() === date) {
+				var minstring = (minutes > 9 ? "" : "0") + minutes;
+				var hourstirng = (hours > 9 ? "" : "0") + hours;
+				datestring += " " + hourstirng + ":" + minstring;
+			}
+
+			return datestring;
 		}
 	}
 }; //
+//
+//
 //
 //
 //
@@ -11253,15 +11280,24 @@ exports.default = {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('input', {
+  return _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "title"
+    }
+  }, [_vm._v("Title")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.title),
       expression: "title"
     }],
+    staticClass: "form-control",
     attrs: {
-      "type": "text"
+      "type": "text",
+      "id": "title",
+      "placeholder": "Title"
     },
     domProps: {
       "value": _vm._s(_vm.title)
@@ -11272,13 +11308,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.title = $event.target.value
       }
     }
-  }), _vm._v(" "), _c('textarea', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "memo"
+    }
+  }, [_vm._v("Memo")]), _vm._v(" "), _c('textarea', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.memo),
       expression: "memo"
     }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "memo",
+      "placeholder": "Input your memo",
+      "rows": "10"
+    },
     domProps: {
       "value": _vm._s(_vm.memo)
     },
@@ -11288,7 +11336,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.memo = $event.target.value
       }
     }
-  }), _vm._v(" "), _c('button', {
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
     on: {
       "click": function($event) {
         _vm.saveMemo(_vm.title, _vm.memo)
@@ -11309,8 +11361,15 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.memoStore.memos.length === 0) ? _c('span', [_vm._v("You don't have any memos.")]) : _c('ul', _vm._l((_vm.memoStore.memos), function(memo) {
-    return _c('li', [_c('router-link', {
+  return _c('div', {}, [(_vm.memoStore.memos.length === 0) ? _c('span', {
+    staticClass: "col-xs-12"
+  }, [_vm._v("You don't have any memos.")]) : _c('ul', {
+    staticClass: "list-group"
+  }, _vm._l((_vm.memoStore.memos), function(memo) {
+    return _c('li', {
+      staticClass: "col-xs-12 list-group-item"
+    }, [_c('router-link', {
+      staticClass: "col-xs-8 text-left",
       attrs: {
         "to": {
           name: 'update',
@@ -11319,13 +11378,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }, [_vm._v("\n\t\t\t\t" + _vm._s(memo.title) + "\n\t\t\t")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(memo.created_at))]), _vm._v(" "), _c('button', {
+    }, [_vm._v("\n\t\t\t\t" + _vm._s(memo.title) + "\n\t\t\t")]), _vm._v(" "), _c('span', {
+      staticClass: "col-xs-2"
+    }, [_vm._v(_vm._s(_vm.dateString(memo.created_at)))]), _vm._v(" "), _c('span', {
+      staticClass: "col-xs-offset-1"
+    }, [_c('button', {
+      staticClass: "btn btn-default btn-xs",
       on: {
         "click": function($event) {
           _vm.deleteMemo(memo.uid)
         }
       }
-    }, [_vm._v("delete")])], 1)
+    }, [_vm._v("X")])])], 1)
   }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
