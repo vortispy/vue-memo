@@ -1,8 +1,14 @@
 <template>
 	<div>
-		<input type="text" v-model="title"/>
-		<textarea v-model="memo"/>
-		<button v-on:click="saveMemo(title, memo)">save</button>
+		<div class="form-group">
+			<label for="title">Title</label>
+			<input type="text" v-model="title" id="title" placeholder="Title" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="memo">Memo</label>
+			<textarea v-model="memo" id="memo" placeholder="Input your memo" rows="10" class="form-control"/>
+		</div>
+		<button v-on:click="saveMemo(title, memo)" type="button" class="btn btn-default">save</button>
 	</div>
 </template>
 
