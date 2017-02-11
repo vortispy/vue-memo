@@ -2,6 +2,7 @@
 	<div>
 		<div class="form-group">
 			<label for="title">Title</label>
+			<button v-on:click="deleteMemo(uid)" type="button" class="btn btn-xs right">delete</button>
 			<input type="text" v-model="title" id="title" placeholder="Title" class="form-control"/>
 		</div>
 		<div class="form-group">
@@ -45,6 +46,11 @@ export default {
 			this.$router.replace({ name: 'update', params: { uid: this.uid }});
 			return;
 		},
+		deleteMemo: function (uid){
+			memoStore.deleteMemo(uid);
+			memoStore.saveMemo();
+			this.$router.push({ name: 'home' });
+		},
 		createMemo: function (title, memo, created_at){
 			this.uid = this.generateUid();
 			this.memoStore.createMemo(title, memo, created_at, this.uid);
@@ -79,3 +85,9 @@ export default {
 	}
 };
 </script>
+
+<style lang="css" scoped>
+.right {
+	float: right;
+}
+</style>
