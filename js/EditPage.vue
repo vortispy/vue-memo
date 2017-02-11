@@ -63,6 +63,12 @@ export default {
 		}
 	},
 	watch: {
+		title: function () {
+			this.saveMemo(this.title, this.memo);
+		},
+		memo: function () {
+			this.saveMemo(this.title, this.memo);
+		},
 		'$route' (to, from){
 			if (to.name === 'create') {
 				this.uid = '';
