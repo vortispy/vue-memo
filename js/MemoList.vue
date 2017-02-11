@@ -4,7 +4,8 @@
 		<ul v-else class="list-group">
 			<li v-for="memo in memoStore.memos" class="col-xs-12 list-group-item">
 				<router-link :to="{ name: 'update', params: { uid: memo.uid }}" class="col-xs-8 text-left">
-					{{ memo.title }}
+					<span v-if="memo.title !== ''">{{ memo.title }}</span>
+					<span v-else>(no title)</span>
 				</router-link>
 				<span class="col-xs-2">{{ dateString(memo.created_at) }}</span>
 				<span class="col-xs-offset-1">
