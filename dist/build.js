@@ -11290,6 +11290,7 @@ exports.default = {
 //
 //
 //
+//
 
 /***/ }),
 /* 9 */
@@ -11474,7 +11475,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }, [_vm._v("\n\t\t\t\t" + _vm._s(memo.title) + "\n\t\t\t")]), _vm._v(" "), _c('span', {
+    }, [(memo.title !== '') ? _c('span', [_vm._v(_vm._s(memo.title))]) : _c('span', [_vm._v("(no title)")])]), _vm._v(" "), _c('span', {
       staticClass: "col-xs-2"
     }, [_vm._v(_vm._s(_vm.dateString(memo.created_at)))]), _vm._v(" "), _c('span', {
       staticClass: "col-xs-offset-1"
